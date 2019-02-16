@@ -218,7 +218,7 @@ if __name__ == "__main__":
          cloog='cloog-0.18.4',
          binutils='binutils-2.31',
          gcc='gcc-8.2.0',
-         gdb='gdb-8.2',
+         gdb='gdb-8.2.1',
          stamps=path.join('{top}', '{target}', 'stamps'),
          build=path.join('{top}', '{target}', 'build'),
          sources=path.join('{top}', '{target}', 'sources'),

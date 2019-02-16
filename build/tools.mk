@@ -1,13 +1,25 @@
+
 TARGET = mipsel-mimiker-elf
+ifdef MIMIKER_ARM
+  TARGET = aarch64-mimiker-elf
+endif
+
 
 TOOLCHAIN_FOUND = $(shell which $(TARGET)-gcc > /dev/null; echo $$?)
 ifneq ($(TOOLCHAIN_FOUND), 0)
   $(error $(TARGET) toolchain not found. Please refer to README.md)
 endif
 
-CC       = $(TARGET)-gcc -mips32r2 -EL -g
+ifeq ($(TARGET), mipsel-mimiker-elf)
+  CC       = $(TARGET)-gcc -mips32r2 -EL -g
+  AS       = $(TARGET)-as  -mips32r2 -EL -g
+  
+else ifeq ($(TARGET), aarch64-mimiker-elf)
+  CC       = $(TARGET)-gcc -march=armv8-a -g
+  AS       = $(TARGET)-as  -march=armv8-a -g
+endif
+
 AR       = $(TARGET)-ar
-AS       = $(TARGET)-as -mips32r2 -EL -g
 NM       = $(TARGET)-nm
 GDB      = $(TARGET)-gdb
 RANLIB	 = $(TARGET)-ranlib
